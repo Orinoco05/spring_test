@@ -1,5 +1,7 @@
 package com.example.test.service.dto;
 
+import com.example.test.domain.Account;
+import com.example.test.domain.Lop;
 import com.example.test.domain.SinhVien;
 import jakarta.persistence.Tuple;
 import lombok.Getter;
@@ -10,21 +12,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class SinhVienDTO {
-//    private Long id;
+    private Long id;
     private String name;
     private String userName;
     private String password;
 
     private String className;
-    public static SinhVienDTO convertToLopDTO(SinhVien sinhVien) {
-        SinhVienDTO dto = new SinhVienDTO();
-//        dto.setId(sinhVien.getId());
-        dto.setName(sinhVien.getName());
-        return dto;
+    public SinhVienDTO(SinhVien sinhVien, Account account, Lop lop) {
+      this.id = sinhVien.getId();
+      this.name = sinhVien.getName();
+      this.userName = account.getName();
+      this.password = account.getPassword();
+      this.className = lop.getName();
     }
     public static SinhVienDTO convertToLopDTOV2(Tuple tuple) {
         SinhVienDTO dto = new SinhVienDTO();
-//        dto.setId(tuple.get("id", Long.class));
+        dto.setId(tuple.get("id", Long.class));
         dto.setName(tuple.get("name", String.class));
         dto.setUserName(tuple.get("username", String.class));
         dto.setPassword(tuple.get("password", String.class));
@@ -32,7 +35,7 @@ public class SinhVienDTO {
     }
     public static SinhVienDTO convertToLopDTOV3(Tuple tuple) {
         SinhVienDTO dto = new SinhVienDTO();
-//        dto.setId(tuple.get("id", Long.class));
+        dto.setId(tuple.get("id", Long.class));
         dto.setName(tuple.get("name", String.class));
         dto.setUserName(tuple.get("username", String.class));
         dto.setPassword(tuple.get("password", String.class));

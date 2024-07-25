@@ -2,11 +2,10 @@ package com.example.test.controler;
 
 import com.example.test.service.StudentService;
 import com.example.test.service.dto.LopDTO;
+import com.example.test.service.dto.SinhVienCreateDTO;
 import com.example.test.service.dto.SinhVienDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.test.service.dto.SinhVienUpdateDTO;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +21,26 @@ public class SinhVienController {
     @GetMapping("")
     public List<SinhVienDTO> getAccountsPage(){
         return studentService.getAllLop();
+    }
+    @PostMapping("/create")
+    public List<SinhVienDTO> createMany(
+        @RequestBody List<SinhVienCreateDTO> sinhVienCreateDTOS
+    ){
+        return studentService.createMany(sinhVienCreateDTOS);
+    }
+    @PutMapping("/update/{id}")
+    public SinhVienDTO update(
+        @PathVariable(name = "id") Long id,
+        @RequestBody SinhVienUpdateDTO sinhVienUpdateDTO
+    ){
+        return studentService.update(id, sinhVienUpdateDTO);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void update(
+        @PathVariable(name = "id") Long id
+    ){
+        studentService.delete(id);
     }
 
 }
